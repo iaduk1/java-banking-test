@@ -61,7 +61,7 @@ public class UserController {
 
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity getUserDetails(@PathVariable("userId") String userId,
                                          Principal principal) throws UserNotFoundException {
 

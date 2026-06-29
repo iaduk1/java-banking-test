@@ -6,15 +6,17 @@ import guru.springframework.msscbrewery.web.model.AccountDto;
 import guru.springframework.msscbrewery.web.model.UserDto;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.time.OffsetDateTime;
+import java.util.*;
 
 /**
  * Created by jt on 2019-04-20.
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+
+    private static final Map<String, UserDto> store = new HashMap<>();
 
     @Override
     public UserDto updateUserDetails(String userId, UserDto updateData, String authenticatedUser) throws ForbiddenException {
@@ -32,18 +34,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserDetails(String userId, String authenticatedUser) {
-        return UserDto.builder().name(userId)
-                .build();
-    }
-
-    @Override
-    public UserDto getUserDetails(UUID userId, String authenticatedUser) {
-        return null;
+        return store.get(userId);
     }
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        return null;
+
+        String id  = "usr-" + UUID.randomUUID().toString().replace("-", "").substring(0, 7);
+        OffsetDateTime now = OffsetDateTime.now();
+
+        UserDto newUser = UserDto.builder()
+                .id(id)
+                .name(userDto.getName())
+                .address(userDto.getAddress())
+                .email(userDto.getEmail())
+                .createdTimestamp(now)
+                .updatedTimestamp(now)
+                .build();
+
+        store.put(id, newUser);
+        return newUser;
     }
 
     @Override
