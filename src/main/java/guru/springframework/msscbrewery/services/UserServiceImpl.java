@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String userId, String authenticatedUser) throws UserController.UserAccountConflictException, ForbiddenException {
 
-        String targetResourceOwner = "alice_brewer";
 
         if (!userId.equals(authenticatedUser)) {
             throw new ForbiddenException("Access Denied: You do not have permission to delete this profile.");
