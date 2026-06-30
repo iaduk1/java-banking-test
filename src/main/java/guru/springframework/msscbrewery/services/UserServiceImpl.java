@@ -2,7 +2,6 @@ package guru.springframework.msscbrewery.services;
 
 import guru.springframework.msscbrewery.exceptions.ForbiddenException;
 import guru.springframework.msscbrewery.web.controller.UserController;
-import guru.springframework.msscbrewery.web.model.AccountDto;
 import guru.springframework.msscbrewery.web.model.UserDto;
 import org.springframework.stereotype.Service;
 
