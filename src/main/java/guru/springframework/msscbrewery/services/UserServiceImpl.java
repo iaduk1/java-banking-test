@@ -23,14 +23,14 @@ public class UserServiceImpl implements UserService {
         if (!userId.equals(authenticatedUser)) {
             throw new ForbiddenException("Access Denied: You cannot alter another user's account details.");
         }
-        UserDto currentuser = store.get(userId);
+        UserDto currentUser = store.get(userId);
         UserDto updatedUser = UserDto.builder()
                 .id(userId)
                 .name(updateData.getName())
                 .address(updateData.getAddress())
                 .phoneNumber(updateData.getPhoneNumber())
                 .email(updateData.getPhoneNumber())
-                .createdTimestamp(currentuser.getCreatedTimestamp())
+                .createdTimestamp(currentUser.getCreatedTimestamp())
                 .updatedTimestamp(OffsetDateTime.now())
                 .build();
         store.put(userId, updatedUser);
