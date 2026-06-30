@@ -63,7 +63,6 @@ public class UserController {
 
     }
 
-
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUserUserWithLinkedAccount(@PathVariable("userId") String userId,
                                            Principal principal) throws UserNotFoundException, ForbiddenException {

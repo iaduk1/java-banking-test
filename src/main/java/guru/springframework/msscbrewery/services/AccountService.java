@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface AccountService {
 
-    List<AccountDto> getAccounts(String userId);
 
     AccountDto getAccountsById(String accountId, String authenticatedUser);
 
