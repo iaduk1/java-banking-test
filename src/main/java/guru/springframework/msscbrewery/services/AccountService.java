@@ -10,6 +10,8 @@ import java.util.List;
 public interface AccountService {
 
 
+    List<AccountDto> getAccounts(String authenticatedUser);
+
     AccountDto getAccountsById(String accountId, String authenticatedUser);
 
     AccountDto createAccount(String name, AccountDto accountDto);
