@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.sql.Array;
 import java.time.OffsetDateTime;
 import java.util.*;
 
@@ -35,7 +34,7 @@ public class TransactionImpl implements TransactionService {
     @Override
     public TransactionDto getTransactionById(String accountId, String transactionId, String userId) {
         return transactionStore.getOrDefault(accountId, new ArrayList<>())
-                .stream().filter(f->f.getTransactionId().equals(transactionId))
+                .stream().filter(f -> f.getTransactionId().equals(transactionId))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Trnactions could not be found"));
     }
@@ -58,7 +57,7 @@ public class TransactionImpl implements TransactionService {
         } else {
             accountService.updateBalance(accountId, account.getBalance().add(amount));
         }
-        String transactionId = "transact-" + UUID.randomUUID().toString().replace("-", "").substring(0,7);
+        String transactionId = "transact-" + UUID.randomUUID().toString().replace("-", "").substring(0, 7);
 
         TransactionDto savedTransaction = TransactionDto.builder()
                 .accountId(accountId)
