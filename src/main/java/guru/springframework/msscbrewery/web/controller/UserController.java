@@ -6,10 +6,8 @@ import guru.springframework.msscbrewery.web.model.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-
 import java.security.Principal;
-import java.util.UUID;
+
 
 /**
  * Created by jt on 2019-04-20.
@@ -28,20 +26,8 @@ public class UserController {
     public ResponseEntity createUser(@RequestBody UserDto userDto) throws Exception {
 
         UserDto newUser = userService.createUser(userDto);
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
-
-    @PostMapping("/{userId}")
-    public ResponseEntity authenticatedUserCreateNewUser(@PathVariable("userId") UUID userId,
-                                                         @RequestBody UserDto userDto,
-                                                         Principal principal) throws HttpClientErrorException.BadRequest {
-
-        principal.getName();
-
-        UserDto newUser = userService.createUser(userDto);
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
-    }
-
 
     @PatchMapping("/{userId}")
     public ResponseEntity<UserDto> patchUserDetails(@PathVariable("userId") String userId,
