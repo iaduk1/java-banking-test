@@ -19,7 +19,5 @@ public interface AccountService {
 
     void deleteAccount(String accountNumber, String name);
 
-    void updateAccount(String accountId, BigDecimal subtract);
-
     void updateBalance(String accountId, BigDecimal subtract);
 }

@@ -22,7 +22,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountDto> getAccounts(String authenticatedUser) {
-        return List.of();
+        return ownerStore.entrySet().stream()
+                .filter(e -> e.getValue().equals(authenticatedUser))
+                .map(e -> store.get(e.getKey()))
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
@@ -69,15 +72,30 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public void deleteAccount(String accountNumber, String name) {
-
+    public void deleteAccount(String accountNumber, String userId) {
+        if (!store.containsKey(accountNumber)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
+        }
+        if (!userId.equals(ownerStore.get(accountNumber))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        }
+        store.remove(accountNumber);
+        ownerStore.remove(accountNumber);
     }
 
-    @Override
-    public void updateAccount(String accountId, BigDecimal subtract) {
-
-    }
-
-    public void updateBalance(String accountId, BigDecimal subtract) {
+    public void updateBalance(String accountId, BigDecimal newBalance) {
+        AccountDto existing = store.get(accountId);
+        if (existing != null) {
+            store.put(accountId, AccountDto.builder()
+                    .accountNumber(existing.getAccountNumber())
+                    .sortCode(existing.getSortCode())
+                    .name(existing.getName())
+                    .accountType(existing.getAccountType())
+                    .balance(newBalance)
+                    .currency(existing.getCurrency())
+                    .createdTimestamp(existing.getCreatedTimestamp())
+                    .updatedTimestamp(OffsetDateTime.now())
+                    .build());
+        }
     }
 }
