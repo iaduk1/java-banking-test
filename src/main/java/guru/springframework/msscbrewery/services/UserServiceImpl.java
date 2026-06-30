@@ -1,12 +1,13 @@
 package guru.springframework.msscbrewery.services;
 
 import guru.springframework.msscbrewery.exceptions.ForbiddenException;
-import guru.springframework.msscbrewery.web.controller.UserController;
 import guru.springframework.msscbrewery.web.model.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-04-20.
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String userId, String authenticatedUser) throws UserController.UserAccountConflictException, ForbiddenException {
+    public void deleteUser(String userId, String authenticatedUser) throws ForbiddenException {
 
 
         if (!userId.equals(authenticatedUser)) {

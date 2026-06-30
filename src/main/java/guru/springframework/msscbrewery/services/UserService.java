@@ -4,7 +4,6 @@ import guru.springframework.msscbrewery.exceptions.ForbiddenException;
 import guru.springframework.msscbrewery.web.controller.UserController;
 import guru.springframework.msscbrewery.web.model.UserDto;
 
-import java.util.UUID;
 
 public interface UserService {
 
